@@ -10,7 +10,6 @@ class App extends Component {
         pswd: '',
         login: {
           state: 0,
-          admin: false
         },
       }
       this.onNameChange = this.onNameChange.bind(this);
@@ -30,17 +29,26 @@ handleSubmit(name,pswd) {
       {
         login: {
           state: 1,
-          admin: true
         }
       });
-    alert('Login Succesful');
   }
   else {
-    alert('Enter again')
+    this.setState(
+      {
+        login: {
+          state: 0,
+        }
+      });
   }
 }
 
 render() {
+  if(this.state.login.state==1) {
+    return(<div><h4>Hello {this.state.name}</h4></div>)
+  }
+  else {
+    alert('Invalid Input');
+  }
     return (
       <div className="App">
       <table>
