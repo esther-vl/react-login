@@ -1,25 +1,73 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  render() {
+  
+    constructor(props) {
+      super(props) 
+      this.state = {
+        name: '',
+        pswd: '',
+        login: {
+          state: 0,
+          admin: false
+        },
+      }
+      this.onNameChange = this.onNameChange.bind(this);
+      this.onPswdChange = this.onPswdChange.bind(this);
+    }     
+onNameChange(e) {
+  this.setState({ name: e.target.value });
+}
+
+onPswdChange(e) {
+  this.setState({ pswd: e.target.value });
+}
+
+handleSubmit(name,pswd) {
+  if(name =='admin' && pswd == 'admin') {
+    this.setState(
+      {
+        login: {
+          state: 1,
+          admin: true
+        }
+      });
+    alert('Login Succesful');
+  }
+  else {
+    alert('Enter again')
+  }
+}
+
+render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <table>
+        <tr>
+            <input 
+              type='text'
+              name='username'
+              placeholder='User Name'
+              value= {this.state.name}
+              onChange= {this.onNameChange}
+              />
+              </tr>
+              <tr>
+              <input
+              type='password'
+              pswd='password'
+              placeholder='Password'
+              value= {this.state.pswd}
+              onChange= {this.onPswdChange}
+              />
+              </tr>
+              <tr>
+              <button
+                onClick={() =>this.handleSubmit(this.state.name,this.state.pswd)}>LOGIN
+                </button>
+                </tr>
+                </table>
       </div>
     );
   }
